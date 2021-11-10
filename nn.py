@@ -11,15 +11,16 @@ train, test =  dataTool.retrieveData
 
 x_train, x_test, y_train, y_test = dataTool.split_data(train, 'label', True, 0.4)
 
+x_train, x_test = dataTool.normalize(train.drop('label', axis = 1), [x_train, x_test])
+
 nn = Sequential()
 
-nn.add(Dense(784, input_dim=784, activation='relu'))
-nn.add(Dense(50, activation='relu'))
-nn.add(Dense(10, activation='relu'))
-nn.add(Dense(5, activation='relu'))
-nn.add(Dense(1, activation='sigmoid'))
+nn.add(Dense(10, input_dim=784, activation='relu'))
+nn.add(Dense(128, activation='relu'))
+nn.add(Dense(128, activation='relu'))
+nn.add(Dense(10, activation='softmax'))
 
-nn.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+nn.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 nn.summary()
 
 x_train_array = np.asarray(x_train)
