@@ -3,6 +3,7 @@ import numpy as np
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
+import pathlib
 
 from typing import Union, Tuple, List, Iterable
 
@@ -45,6 +46,21 @@ class dataTool():
             outputList.append(normalData)
 
         return outputList 
+        
+    def __create_directory(self, path):
+        pathlib.Path(path).mkdir(parents=True, exist_ok=True)
+
+    def write_models(self, path):
+        '''
+        Kaan write your code here :dogeBuff:
+        and also a really quick but clear documentation for the method :dogeBuff:
+        '''
+        self.__create_directory(path) # the path should end with a '/' for example 'models/'
+        # Here use the pickle library to "pickle" the models, the return from that is a .pkl file
+        # which can then be imported and used for prediction on any platform, even webpages back code, cool huh?
+        # dogeBuff
+        return f'Models written, located in {path}'
+
 
     @property
     def retrieveData(self) -> Union[pd.DataFrame, pd.DataFrame]:
