@@ -7,7 +7,7 @@ dataTool = dataTool('data/train.csv', 'data/test.csv')
 
 train, test =  dataTool.retrieveData
 
-x_train, x_test, y_train, y_test = dataTool.split_data(train, 'label', True, 0.4)
+x_train, x_test, y_train, y_test = dataTool.split_data(train, 'label', True, 0.99)
 
 x_train, x_test = dataTool.normalize(train.drop('label', axis = 1), [x_train, x_test])
 
@@ -19,10 +19,10 @@ from sklearn.svm import SVC
 
 # add svm model classifier
 svclassifier = SVC(kernel = 'linear')
-svclassifier.fit(x_train,y_train)
+svclassifier.fit(x_train, y_train)
 
 #predict values
-y_pred_SVM = svclassifier.predict(test)
+y_pred_SVM = svclassifier.predict(test.drop(['label'], axis=1))
 
 # #SVM_matrix = confusion_matrix(y_test,y_pred_SVM)
 # SVM_matrix
