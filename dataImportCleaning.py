@@ -11,7 +11,7 @@ class dataTool():
     def __init__(self, trainDF_Path: str, testDF_Path: str):
         '''importing training and test sets'''
         self.train = pd.read_csv(trainDF_Path)
-        self.test = pd.read_csv(trainDF_Path)
+        self.test = pd.read_csv(testDF_Path)
     #cleaning part
     def cleaning(self):
         '''to be defined'''
