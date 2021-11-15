@@ -1,7 +1,10 @@
+from sklearn.metrics import confusion_matrix
 import pandas as pd
 import numpy as np
-
+import matplotlib.pyplot as plt
 from dataImportCleaning import dataTool
+import numpy as np
+
 
 dataTool = dataTool('data/train.csv', 'data/test.csv')
 
@@ -22,26 +25,31 @@ svclassifier = SVC(kernel = 'linear')
 svclassifier.fit(x_train, y_train)
 
 #predict values
-y_pred_SVM = svclassifier.predict(test.drop(['label'], axis=1))
+y_pred_SVM = svclassifier.predict(x_test)
 
-# #SVM_matrix = confusion_matrix(y_test,y_pred_SVM)
-# SVM_matrix
+from sklearn.metrics import accuracy_score
+print("Accuracy:    ", accuracy_score(y_pred_SVM,y_test))
+
+
+SVM_matrix = confusion_matrix(y_pred_SVM,y_test)
+print(SVM_matrix)
 
 #(def is to identify the confusion matrix so keep it)
 
-#  def plot_cnf_matirx(cnf_matrix,description):
-#     class_names = [0,1]
-#     fig,ax = plt.subplots()
-#     tick_marks = np.arange(len(class_names))
-#     plt.xticks(tick_marks,class_names)
-#     plt.yticks(tick_marks,class_names)
+def plot_cnf_matirx(cnf_matrix,description):
+    class_names = [0,1]
+    fig,ax = plt.subplots()
+    tick_marks = np.arange(len(class_names))
+    plt.xticks(tick_marks,class_names)
+    plt.yticks(tick_marks,class_names)
 
 # (so you need to change the pd.datafram  ...matix (the name))
-
-#     sns.heatmap(pd.DataFrame(SVM_matrix), annot = True, cmap = 'OrRd',fmt = 'g')
-# ax.xaxis.set_label_position('top')
-# plt.tight_layout()
-# plt.title('confusion matrix for SVM model')  (change title too)
-# plt.ylabel('actual value 0/1',fontsize=12)
-# plt.xlabel('predict value 0/1',fontsize=12)
-# plt.show()
+import seaborn as sns
+import matplotlib.axes as ax
+sns.heatmap(pd.DataFrame(SVM_matrix), annot = True, cmap = 'OrRd',fmt = 'g')
+#ax.xaxis.set_label_position('top')
+plt.tight_layout()
+plt.title('confusion matrix for SVM model')  #(change title too)
+plt.ylabel('actual value 0/1',fontsize=12)
+plt.xlabel('predict value 0/1',fontsize=12)
+plt.show()

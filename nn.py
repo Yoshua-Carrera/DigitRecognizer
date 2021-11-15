@@ -1,8 +1,13 @@
+from numpy.core.fromnumeric import argmax
 import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
 from keras.models import Sequential
 from keras.layers import Dense
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
+import numpy as np
+
 
 from dataImportCleaning import dataTool
 
@@ -45,3 +50,20 @@ plt.plot(history.epoch, history.history['accuracy'])
 plt.xlabel('Iteration')
 plt.ylabel('Accuracy')
 plt.show()
+
+y_pred = nn.predict(x_test)
+
+
+loss,accuracy = nn.evaluate(x_test,y_test)
+print(loss,accuracy)
+
+
+prediction = nn.predict(x_test)
+actual_prediction = []
+
+for item in prediction:
+    actual_prediction.append(np.argmax(item))
+
+
+print(f'Accuracy: {accuracy_score(actual_prediction, y_test)}')
+    
