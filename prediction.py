@@ -8,8 +8,8 @@ pathlib.Path('prediction').mkdir(parents=True, exist_ok=True)
 prediction = nn_prediction(showEval=False, epochs=100, splt=False)
 
 submission = {
-    'ImageID': range(len(prediction)),
-    '# Label': prediction    
+    'ImageID': range(1, len(prediction)+1),
+    'Label': prediction    
 }
 
 submission_df = pd.DataFrame(submission)
